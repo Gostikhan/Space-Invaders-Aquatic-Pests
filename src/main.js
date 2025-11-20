@@ -91,6 +91,14 @@ class GameScene extends Phaser.Scene{
       }
     });
   } // runs continuously
+  shootBullet() {
+    const bullet = this.bullets.get(this.player.x, this.player.y - 20, "bullet");
+    if (bullet) {
+      bullet.setActive(true);
+      bullet.setVisible(true);
+      bullet.body.velocity.y = -400;
+    }
+  }
 }
 
 
