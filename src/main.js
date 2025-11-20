@@ -6,8 +6,6 @@ const sizes={
   height:window.innerHeight,
 }
 
-
-
 const config = {
   type: Phaser.AUTO,
   width: sizes.width,
@@ -72,7 +70,27 @@ class GameScene extends Phaser.Scene{
       fill: "#fff",
     });
   } // accepts loaded assets and handle them accordingly
-  update() {} // runs continuously
+  update() {
+    if (this.cursors.left.isDown) {
+      this.player.setVelocityX(-300);
+    } else if (this.cursors.right.isDown) {
+      this.player.setVelocityX(300);
+    } else {
+      this.player.setVelocityX(0);
+    }
+
+    // Shooting
+    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+      this.shootBullet();
+    }
+
+    // Enemy movement
+    this.enemies.children.iterate((enemy) => {
+      if (enemy.y > config.height - 100) {
+        this.gameOver();
+      }
+    });
+  } // runs continuously
 }
 
 
