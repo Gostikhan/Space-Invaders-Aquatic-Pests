@@ -1,79 +1,81 @@
 import './style.css'
 import Phaser from 'phaser';
 
+const sizes={
+  width: window.innerWidth,
+  height:window.innerHeight,
+}
+
+
 
 const config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  backgroundColor: "#222D47", // WAI Wanaka dark blue
+  width: sizes.width,
+  height: sizes.height,
+  backgroundColor: "#1a2a3a",
   physics: {
     default: "arcade",
-    arcade: { debug: false}
+    arcade: {
+      debug: false,
+    },
   },
-  scene: [GameScene]
+  scene:[GameScene]
 };
 
-new Phaser.Game(config);
-
-class GameScene extends Phaser.Scene {
-  constructor() {
-    super("GameScene");
+class GameScene extends Phaser.Scene{
+  constructor(){
+    super("GameScene")
   }
+  preload(){
+    this.load.image("bg","/assets/test_image.jpg")
+    //this.load.image("bullet", "assets/bullet.png");
+    //this.load.image("player", "assets/player.png");
+    //this.load.image("enemy", "assets/enemy.png");
 
-  preload() {
-    // Placeholder graphics
-    this.load.image("player", "https://labs.phaser.io/assets/sprites/phaser-dude.png");
-    this.load.image("didymo", "https://labs.phaser.io/assets/sprites/red.png");
-    this.load.image("bullet", "https://labs.phaser.io/assets/sprites/blue.png");
-  }
-
+  } // Preload the assets
   create() {
-    // Player
-    this.player = this.physics.add.sprite(400, 550, "player").setCollideWorldBounds(true);
+    this.player = this.physics.add.sprite(
+      config.width / 2,
+      config.height - 80,
+      "player"
+    );
+    this.player.setCollideWorldBounds(true);
 
-    // Controls
+    //controls
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-    // Bullets
-    this.bullets = this.physics.add.group();
-
-    // Enemies
-    this.enemies = this.physics.add.group({
-      key: "didymo",
-      repeat: 10,
-      setXY: { x: 100, y: 50, stepX: 60 }
+    this.spacebar = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SPACE
+    );
+    // Bullets group
+    this.bullets = this.physics.add.group({
+      classType: Phaser.Physics.Arcade.Image,
+      maxSize: 30,
     });
+
+    // Enemy group
+    this.enemies = this.physics.add.group();
+    this.spawnEnemies();
 
     // Collision
-    this.physics.add.overlap(this.bullets, this.enemies, this.hitEnemy, null, this);
-  }
+    this.physics.add.overlap(
+      this.bullets,
+      this.enemies,
+      this.hitEnemy,
+      null,
+      this
+    );
 
-  update() {
-    // Player movement
-    if (this.cursors.left.isDown) this.player.setVelocityX(-200);
-    else if (this.cursors.right.isDown) this.player.setVelocityX(200);
-    else this.player.setVelocityX(0);
-
-    // Shoot
-    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-      const bullet = this.bullets.create(this.player.x, this.player.y - 20, "bullet");
-      bullet.setVelocityY(-300);
-    }
-
-    // Enemy descent
-    this.enemies.children.iterate(enemy => {
-      enemy.y += 0.5; // slow descent
-      if (enemy.y > 600) {
-        this.scene.restart(); // Game Over condition
-      }
+    // Score
+    this.score = 0;
+    this.scoreText = this.add.text(20, 20, "Score: 0", {
+      fontSize: "24px",
+      fill: "#fff",
     });
-  }
-
-  hitEnemy(bullet, enemy) {
-    bullet.destroy();
-    enemy.destroy();
-  }
+  } // accepts loaded assets and handle them accordingly
+  update() {} // runs continuously
 }
+
+
+
+const game = new Phaser.Game(config)
 
