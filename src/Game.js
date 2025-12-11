@@ -27,6 +27,7 @@ SpaceInvaders.Game.prototype = {
 	},
 
 	buildWorld: function(){
+		this.add.image(0, 0, 'levelBG');
 		this.buildInvaders();
 		this.buildShip();
 		this.buildBullets();

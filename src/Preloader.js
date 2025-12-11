@@ -17,7 +17,8 @@ SpaceInvaders.Preloader.prototype = {
         this.load.image('bullet', 'assets/images/blaster.png');
         this.load.image('invaderBullet', 'assets/images/invaderblaster.png');
         this.load.bitmapFont('eightbitwonder', 'assets/fonts/eightbitwonder.png', 'assets/fonts/eightbitwonder.fnt');       
-        this.load.atlasJSONArray('invaders', 'assets/images/spritesheets/invaders.png', 'assets/images/spritesheets/invaders.json'); 
+        this.load.atlasJSONArray('invaders', 'assets/images/spritesheets/invaders.png', 'assets/images/spritesheets/invaders.json');
+		this.load.image('levelBG', 'assets/images/river_map.png');
 	},
 
 	create: function () {
