@@ -250,16 +250,16 @@ SpaceInvaders.Game.prototype = {
 	},
 
 	invadersCount: function(){
-		this.totalInvaders--;
-   		if(this.totalInvaders == 0){
-   			this.score = 1337;
-   			this.scoreText.text = 'Score : ' + this.score;
-   			this.stateText.text = " You Win,\n Click to restart";
-        	this.stateText.visible = true;
-        	this.gameover = true;
-      		this.game.input.onTap.addOnce(this.restartGame,this);
-   		}
-	},
+    this.totalInvaders--;
+    if(this.totalInvaders == 0){
+        this.stateText.text = " Level Complete!\n Click to continue";
+        this.stateText.visible = true;
+        this.gameover = true;
+        this.game.input.onTap.addOnce(function(){
+            this.state.start('GameLevel2', true, false, this.score); 
+        }, this);
+    }
+},
 
 	restartGame: function(){
 		// console.log('restartGame function');

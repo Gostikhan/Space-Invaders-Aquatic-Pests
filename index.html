@@ -9,6 +9,7 @@
     <script src="src/Preloader.js"></script>
     <script src="src/StartMenu.js"></script>
     <script src="src/Game.js"></script>
+    <script src="src/GameLevel2.js"></script>
 </head>
 <body>
     <div id="gameContainer"></div>
@@ -19,7 +20,9 @@
             game.state.add('Preloader', SpaceInvaders.Preloader);
             game.state.add('StartMenu', SpaceInvaders.StartMenu);
             game.state.add('Game', SpaceInvaders.Game);
+            game.state.add('GameLevel2', SpaceInvaders.GameLevel2);
             game.state.start('Boot');
+            
         }
     </script>
 </body>

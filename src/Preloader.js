@@ -19,6 +19,7 @@ SpaceInvaders.Preloader.prototype = {
         this.load.bitmapFont('eightbitwonder', 'assets/fonts/eightbitwonder.png', 'assets/fonts/eightbitwonder.fnt');       
         this.load.atlasJSONArray('invaders', 'assets/images/spritesheets/invaders.png', 'assets/images/spritesheets/invaders.json');
 		this.load.image('levelBG', 'assets/images/river_map.png');
+		this.load.image('levelBG2', 'assets/images/wanaka_map.png');
 	},
 
 	create: function () {
