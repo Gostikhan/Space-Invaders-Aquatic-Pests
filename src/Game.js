@@ -17,10 +17,14 @@ SpaceInvaders.Game = function(game) {
 	this.totalLives = 3;
 	this.livingEnemies = [];
 	this.music = null;
+	this.currentWeapon = 'check';
 	
 };
 
-
+SpaceInvaders.Game.prototype.init = function(score){
+    this.score = score || 0;
+    this.currentWeapon = 'check';
+};
 
 SpaceInvaders.Game.prototype = {
 	
@@ -34,6 +38,7 @@ SpaceInvaders.Game.prototype = {
 		this.music.loop = true;   // keep looping
 		this.music.play();
 	},
+	
 
 	buildWorld: function(){
 		this.add.image(0, 0, 'levelBG');
@@ -76,6 +81,7 @@ SpaceInvaders.Game.prototype = {
 		//When the tween loops it calls > flyDown
 		tween.onLoop.add(this.flyDown, this);
 	},
+
 
 	buildInvadersExplosions: function(){
 		this.invadersExplosions = this.add.group();
@@ -164,6 +170,7 @@ SpaceInvaders.Game.prototype = {
 	buildUI: function(){
 		this.scoreText = this.add.bitmapText(10, 10, 'eightbitwonder','Score : ' + this.score, 16);
 		this.scoreText.visible = true;
+		this.weaponText = this.add.bitmapText(10, 30, 'eightbitwonder', 'Weapon: ' + this.currentWeapon.toUpperCase(), 16);
 	},
 
 	flyDown: function() {
@@ -172,18 +179,20 @@ SpaceInvaders.Game.prototype = {
 
 
 	fireBullet: function() {
+		if (this.time.now > this.bulletTime && this.gameover == false) {
+			let bulletKey;
+			if (this.currentWeapon === 'check') bulletKey = 'checkRay';
+			else if (this.currentWeapon === 'clean') bulletKey = 'cleanBlaster';
+			else if (this.currentWeapon === 'dry') bulletKey = 'dryBeam';
 
-	    if (this.time.now > this.bulletTime && this.gameover == false)
-	    {
-	        bullet = this.bullets.getFirstExists(false);
-
-	        if (bullet)
-	        {
-	            bullet.reset(this.ship.x, this.ship.y-25);
-	            bullet.body.velocity.y = -300;
-	            this.bulletTime = this.time.now + 500;
-	        }
-	    }
+			let bullet = this.bullets.getFirstExists(false);
+			if (bullet) {
+				bullet.loadTexture(bulletKey); // swap sprite
+				bullet.reset(this.ship.x, this.ship.y - 25);
+				bullet.body.velocity.y = -300;
+				this.bulletTime = this.time.now + 500;
+			}
+		}
 	},
 
 	fireInvaderBullet: function(invader, bullet) {
@@ -272,6 +281,9 @@ SpaceInvaders.Game.prototype = {
 			}, this);
 		}
 	},
+	updateWeaponUI: function(){
+    	this.weaponText.text = 'Weapon: ' + this.currentWeapon.toUpperCase();
+},
 
 	restartGame: function(){
 		// console.log('restartGame function');
@@ -325,6 +337,7 @@ SpaceInvaders.Game.prototype = {
 	   		this.physics.arcade.overlap(this.invadersBullets, this.ship, this.collisionInvadersBulletsShip, null, this);   			
    		}
 	}
+	
 	
 
 };

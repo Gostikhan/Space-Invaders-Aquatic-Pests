@@ -15,7 +15,7 @@ SpaceInvaders.Preloader.prototype = {
        	this.load.image('titlescreen', 'assets/images/TitleBG1.jpg');
 		this.load.audio('titleMusic', 'assets/audio/TitleMusic.mp3');
         this.load.image('ship', 'assets/images/ship.png');
-        this.load.image('bullet', 'assets/images/blaster.png');
+        //this.load.image('bullet', 'assets/images/blaster.png');
         this.load.image('invaderBullet', 'assets/images/invaderblaster.png');
         this.load.bitmapFont('eightbitwonder', 'assets/fonts/eightbitwonder.png', 'assets/fonts/eightbitwonder.fnt');       
         this.load.atlasJSONArray('invaders', 'assets/images/spritesheets/invaders.png', 'assets/images/spritesheets/invaders.json');
@@ -28,6 +28,9 @@ SpaceInvaders.Preloader.prototype = {
 		this.load.audio('level1Music', 'assets/audio/Level1Music.mp3');
 		this.load.audio('level2Music', 'assets/audio/Level2Music.mp3');
 		this.load.audio('level3Music', 'assets/audio/Level3Music.mp3');
+		this.load.image('checkRay', 'assets/images/checkRay.jpg');
+		this.load.image('cleanBlaster', 'assets/images/cleanBlaster.jpg');
+		this.load.image('dryBeam', 'assets/images/dryBeam.jpg');
 	},	
 
 	create: function () {

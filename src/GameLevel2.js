@@ -25,6 +25,7 @@ SpaceInvaders.GameLevel2.prototype.create = function() {
 // Optional: initialize with score carried over from Level 1
 SpaceInvaders.GameLevel2.prototype.init = function(scoreFromLevel1){
     this.score = scoreFromLevel1 || 0; // continue score
+    this.currentWeapon = 'clean';
 };
 
 // Override buildWorld to change background or tweak level setup
