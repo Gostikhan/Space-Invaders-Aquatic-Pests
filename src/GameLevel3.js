@@ -1,25 +1,25 @@
 var SpaceInvaders = SpaceInvaders || {};
 
 // Define GameLevel2 as a new state that extends Game
-SpaceInvaders.GameLevel2 = function(game) {
+SpaceInvaders.GameLevel3 = function(game) {
     // Call the base Game constructor
     SpaceInvaders.Game.call(this, game);
 };
 
 // Inherit from Game
-SpaceInvaders.GameLevel2.prototype = Object.create(SpaceInvaders.Game.prototype);
-SpaceInvaders.GameLevel2.prototype.constructor = SpaceInvaders.GameLevel2;
+SpaceInvaders.GameLevel3.prototype = Object.create(SpaceInvaders.Game.prototype);
+SpaceInvaders.GameLevel3.prototype.constructor = SpaceInvaders.GameLevel3;
 
 // Optional: initialize with score carried over from Level 1
-SpaceInvaders.GameLevel2.prototype.init = function(scoreFromLevel1){
-    this.score = scoreFromLevel1 || 0; // continue score
+SpaceInvaders.GameLevel3.prototype.init = function(scoreFromLevel2){
+    this.score = scoreFromLevel2 || 0; // continue score
 };
 
 // Override buildWorld to change background or tweak level setup
-SpaceInvaders.GameLevel2.prototype.buildWorld = function(){
-    // Add a different background for Level 2
-    this.add.image(0, 0, 'levelBG2');
-
+SpaceInvaders.GameLevel3.prototype.buildWorld = function(){
+    // Add a different background for Level 3
+    this.add.image(0, 0, 'levelBG3');
+      
     this.buildInvaders();
     this.buildShip();
     this.buildBullets();
@@ -30,16 +30,17 @@ SpaceInvaders.GameLevel2.prototype.buildWorld = function(){
     this.buildShipExplosion();
 };
 
-// Override invadersCount to handle progression beyond Level 2
-SpaceInvaders.GameLevel2.prototype.invadersCount = function(){
+// Override invadersCount for final win condition
+SpaceInvaders.GameLevel3.prototype.invadersCount = function(){
     this.totalInvaders--;
     if(this.totalInvaders == 0){
-        this.stateText.text = " Level 2 Complete!\n Click to continue";
+        this.stateText.text = " YOU WIN!\n Click to restart";
         this.stateText.visible = true;
         this.gameover = true;
 
+        // After final level, go back to StartMenu
         this.game.input.onTap.addOnce(function(){
-            this.state.start('GameLevel3', true, false, this.score);
+            this.state.start('StartMenu');
         }, this);
     }
 };

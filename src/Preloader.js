@@ -20,7 +20,8 @@ SpaceInvaders.Preloader.prototype = {
         this.load.atlasJSONArray('invaders', 'assets/images/spritesheets/invaders.png', 'assets/images/spritesheets/invaders.json');
 		this.load.image('levelBG', 'assets/images/river_map.png');
 		this.load.image('levelBG2', 'assets/images/wanaka_map.png');
-	},
+		this.load.image('levelBG3', 'assets/images/shed_map.png');
+	},	
 
 	create: function () {
 		this.preloadBar.cropEnabled = false;
