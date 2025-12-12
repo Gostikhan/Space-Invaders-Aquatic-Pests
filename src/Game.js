@@ -286,22 +286,16 @@ SpaceInvaders.Game.prototype = {
 },
 
 	restartGame: function(){
-		// console.log('restartGame function');
 		if(this.music){ this.music.stop(); }
-      	this.totalInvaders= this.totalRow*this.totalInvadersRow;
+
+		// Reset core values
+		this.totalInvaders = this.totalRow * this.totalInvadersRow;
 		this.score = 0;
 		this.gameover = false;
-		this.livingEnemies.length = 0;	
-		this.state.start('StartMenu', true, false);
-		// this.invadersExplosions.callAll('revive',this);
-		// this.invaders.callAll('kill',this);
-		// this.invaders.removeAll();
-		// console.log(this.invaders);
-		// this.ship.kill();
-		// this.updateScore();
-		// this.buildInvaders();
-		// this.buildShip();
-		// this.stateText.visible = false;
+		this.livingEnemies.length = 0;
+
+		// Restart cleanly at StartMenu
+		this.state.start('StartMenu', true, false, 0);
 	},
 
 	update: function() {

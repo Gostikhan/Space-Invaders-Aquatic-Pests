@@ -62,15 +62,7 @@ SpaceInvaders.GameLevel2.prototype.restartGame = function(){
     this.score = 0; // reset score to 0
     this.gameover = false;
     this.livingEnemies.length = 0;  
-    this.state.start('StartMenu', true, false);
-};
-SpaceInvaders.GameLevel2.prototype.restartGame = function(){
-    if(this.music){ this.music.stop(); }
-    this.totalInvaders = this.totalRow * this.totalInvadersRow;
-    this.score = 0; // force reset
-    this.gameover = false;
-    this.livingEnemies.length = 0;  
-    this.state.start('StartMenu', true, false, 0); // pass 0 explicitly
+    this.state.start('GameLevel2', true, false, 0);
 };
 
 };
