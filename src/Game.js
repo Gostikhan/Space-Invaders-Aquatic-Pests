@@ -15,8 +15,12 @@ SpaceInvaders.Game = function(game) {
 	this.score = 0;
 	this.gameover = false;
 	this.totalLives = 3;
-	this.livingEnemies = [];	
+	this.livingEnemies = [];
+	this.music = null;
+	
 };
+
+
 
 SpaceInvaders.Game.prototype = {
 	
@@ -24,6 +28,11 @@ SpaceInvaders.Game.prototype = {
 		this.physics.startSystem(Phaser.Physics.ARCADE);
 		this.buildWorld();
 		this.input.keyboard.addKeyCapture([ Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR ]);
+
+		// Play background music for Level 1
+		this.music = this.add.audio('level1Music');
+		this.music.loop = true;   // keep looping
+		this.music.play();
 	},
 
 	buildWorld: function(){
@@ -258,6 +267,7 @@ SpaceInvaders.Game.prototype = {
 
 			// After Level 1, go to FactCard1 instead of directly to Level 2
 			this.game.input.onTap.addOnce(function(){
+				if(this.music){ this.music.stop(); }   // stop Level 1 music
 				this.state.start('FactCard1', true, false, this.score);
 			}, this);
 		}
@@ -265,6 +275,7 @@ SpaceInvaders.Game.prototype = {
 
 	restartGame: function(){
 		// console.log('restartGame function');
+		if(this.music){ this.music.stop(); }
       	this.totalInvaders= this.totalRow*this.totalInvadersRow;
 		this.score = 0;
 		this.gameover = false;

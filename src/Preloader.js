@@ -24,6 +24,9 @@ SpaceInvaders.Preloader.prototype = {
 		this.load.image('factCard1', 'assets/images/FactCard1.png');
 		this.load.image('factCard2', 'assets/images/FactCard2.png');
 		this.load.image('factCard3', 'assets/images/FactCard3.png');
+		this.load.audio('level1Music', 'assets/audio/Level1Music.mp3');
+		this.load.audio('level2Music', 'assets/audio/Level2Music.mp3');
+		this.load.audio('level3Music', 'assets/audio/Level3Music.mp3');
 	},	
 
 	create: function () {

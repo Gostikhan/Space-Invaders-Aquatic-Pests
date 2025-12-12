@@ -10,6 +10,17 @@ SpaceInvaders.GameLevel3 = function(game) {
 SpaceInvaders.GameLevel3.prototype = Object.create(SpaceInvaders.Game.prototype);
 SpaceInvaders.GameLevel3.prototype.constructor = SpaceInvaders.GameLevel3;
 
+SpaceInvaders.GameLevel3.prototype.create = function() {
+    this.physics.startSystem(Phaser.Physics.ARCADE);
+    this.buildWorld();
+    this.input.keyboard.addKeyCapture([ Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR ]);
+
+    if (this.music) { this.music.stop(); } // stop previous music
+    this.music = this.add.audio('level3Music');
+    this.music.loop = true;
+    this.music.play();
+};
+
 // Optional: initialize with score carried over from Level 1
 SpaceInvaders.GameLevel3.prototype.init = function(scoreFromLevel2){
     this.score = scoreFromLevel2 || 0; // continue score
@@ -38,6 +49,7 @@ SpaceInvaders.GameLevel3.prototype.invadersCount = function(){
         this.gameover = true;
 
         this.game.input.onTap.addOnce(function(){
+            if(this.music){ this.music.stop(); }
             this.state.start('FactCard3', true, false, this.score);
         }, this);
     }
