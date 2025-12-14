@@ -43,9 +43,8 @@ SpaceInvaders.FactCard3.prototype = {
 
         // Click/tap to return to StartMenu after final fact
         this.input.onTap.addOnce(function(){
-            this.game.destroy();
-            this.state.start('StartMenu');
-
+            if(this.music){ this.music.stop(); }
+            this.state.start('EndScene', true, false, this.score);
         }, this);
 
     },
